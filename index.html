@@ -766,4 +766,40 @@
 </script>
 
 </body>
+  <!-- AW SPLASH SCREEN INTERFACE -->
+<style>
+  #splash-screen {
+    position: fixed;
+    inset: 0;
+    background: #ffffff; /* Matches your white logo background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+  #splash-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+  }
+  #splash-screen img {
+    max-width: 75%; /* Perfectly sizes the logo on your phone screen */
+    height: auto;
+  }
+</style>
+
+<div id="splash-screen">
+  <img src="logo.png" alt="AW Calculator">
+</div>
+
+<script>
+  // Automatically fades out the splash screen after 1.8 seconds
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const splash = document.getElementById('splash-screen');
+      if (splash) splash.classList.add('fade-out');
+    }, 1800);
+  });
+</script>
+  
 </html>
