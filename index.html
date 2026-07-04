@@ -13,35 +13,19 @@
     --zero-radius:38px;
   }
   [data-theme="dark"]{
-    --bg-top:#2c2c2e;
-    --bg-mid:#1c1c1e;
-    --bg-bottom:#0a0a0b;
-    --panel:#161618;
-    --calc-top:#232325;
-    --calc-bottom:#141416;
-    --display-fade:#8e8e93;
-    --key-num:#2c2c2e;
-    --key-fn:#a5a5a5;
-    --text-light:#f5f5f7;
-    --text-dark:#1c1c1e;
-    --border-soft:rgba(255,255,255,0.06);
-    --hist-hover:rgba(255,255,255,0.06);
+    --bg-top:#2c2c2e; --bg-mid:#1c1c1e; --bg-bottom:#0a0a0b;
+    --panel:#161618; --calc-top:#232325; --calc-bottom:#141416;
+    --display-fade:#8e8e93; --key-num:#2c2c2e; --key-fn:#a5a5a5;
+    --text-light:#f5f5f7; --text-dark:#1c1c1e;
+    --border-soft:rgba(255,255,255,0.06); --hist-hover:rgba(255,255,255,0.06);
     --time-color:#5f5f63;
   }
   [data-theme="light"]{
-    --bg-top:#eef0f3;
-    --bg-mid:#e2e5ea;
-    --bg-bottom:#d3d7dd;
-    --panel:#ffffff;
-    --calc-top:#fbfbfc;
-    --calc-bottom:#e9eaed;
-    --display-fade:#6b6b70;
-    --key-num:#ffffff;
-    --key-fn:#d1d3d8;
-    --text-light:#1c1c1e;
-    --text-dark:#1c1c1e;
-    --border-soft:rgba(0,0,0,0.06);
-    --hist-hover:rgba(0,0,0,0.05);
+    --bg-top:#eef0f3; --bg-mid:#e2e5ea; --bg-bottom:#d3d7dd;
+    --panel:#ffffff; --calc-top:#fbfbfc; --calc-bottom:#e9eaed;
+    --display-fade:#6b6b70; --key-num:#ffffff; --key-fn:#d1d3d8;
+    --text-light:#1c1c1e; --text-dark:#1c1c1e;
+    --border-soft:rgba(0,0,0,0.06); --hist-hover:rgba(0,0,0,0.05);
     --time-color:#9a9a9e;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
@@ -51,22 +35,38 @@
     background:radial-gradient(circle at 50% -10%, var(--bg-top) 0%, var(--bg-mid) 35%, var(--bg-bottom) 100%);
     color:var(--text-light);
     min-height:100vh;
-    display:flex;
-    justify-content:center;
+    display:flex; justify-content:center;
     padding:24px 14px 40px;
     transition:background 0.3s ease, color 0.3s ease;
   }
   .app{ width:100%; max-width:380px; display:flex; flex-direction:column; gap:18px; }
-
-  .top-row{ display:flex; justify-content:flex-end; }
+  .app-header{ position:relative; display:flex; flex-direction:column; align-items:center; padding:4px 44px 14px; }
+  .brand-title{
+    font-family:'Georgia','Times New Roman',serif;
+    font-weight:800;
+    font-size:clamp(1.3rem, 6.5vw, 1.9rem);
+    letter-spacing:2px;
+    text-transform:uppercase;
+    text-align:center;
+    background:linear-gradient(135deg, var(--accent) 0%, var(--text-light) 55%, var(--accent) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    text-shadow:0 2px 14px rgba(0,0,0,0.25);
+    line-height:1.25;
+  }
+  .brand-underline{
+    margin-top:8px;
+    width:64px;
+    height:3px;
+    border-radius:2px;
+    background:linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
   .icon-btn{
-    background:var(--panel);
-    border:1px solid var(--border-soft);
-    color:var(--text-light);
-    width:40px; height:40px;
-    border-radius:14px;
-    display:flex; align-items:center; justify-content:center;
-    cursor:pointer;
+    position:absolute; top:2px; right:0;
+    background:var(--panel); border:1px solid var(--border-soft); color:var(--text-light);
+    width:40px; height:40px; border-radius:14px;
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
     box-shadow:0 6px 16px rgba(0,0,0,0.15);
     transition:filter 0.15s ease, transform 0.08s ease;
   }
@@ -76,50 +76,33 @@
 
   .calc{
     background:linear-gradient(180deg, var(--calc-top) 0%, var(--calc-bottom) 100%);
-    border-radius:32px;
-    padding:22px 18px 24px;
+    border-radius:32px; padding:22px 18px 24px;
     box-shadow:0 20px 50px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04);
     border:1px solid var(--border-soft);
     transition:background 0.3s ease;
   }
   .display{
-    padding:18px 10px 10px;
-    text-align:right;
-    min-height:104px;
+    padding:18px 10px 10px; text-align:right; min-height:104px;
     display:flex; flex-direction:column; justify-content:flex-end; gap:6px;
     word-break:break-all;
   }
   .display .expression{
-    font-size:calc(1rem * var(--scale));
-    color:var(--display-fade);
-    min-height:20px;
-    letter-spacing:0.3px;
+    font-size:calc(1rem * var(--scale)); color:var(--display-fade);
+    min-height:20px; letter-spacing:0.3px;
   }
   .display .current{
-    font-size:calc(clamp(2.2rem, 10vw, 3.4rem) * var(--scale));
-    font-weight:500;
-    line-height:1.1;
-    letter-spacing:0.5px;
+    font-size:calc(clamp(1.8rem, 9vw, 3rem) * var(--scale));
+    font-weight:500; line-height:1.1; letter-spacing:0.5px;
   }
   .keys{
-    display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    gap:12px;
-    margin-top:8px;
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-top:8px;
   }
   button.key{
-    border:none; outline:none;
-    font-size:calc(1.5rem * var(--scale));
-    font-weight:500;
-    padding:0;
-    aspect-ratio:1/1;
-    border-radius:var(--key-radius);
-    cursor:pointer;
-    display:flex; align-items:center; justify-content:center;
+    border:none; outline:none; font-size:calc(1.4rem * var(--scale));
+    font-weight:500; padding:0; aspect-ratio:1/1; border-radius:var(--key-radius);
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
     transition:transform 0.08s ease, filter 0.15s ease, background 0.15s ease, border-radius 0.2s ease;
-    color:var(--text-light);
-    background:var(--key-num);
-    user-select:none;
+    color:var(--text-light); background:var(--key-num); user-select:none;
     box-shadow:0 2px 6px rgba(0,0,0,0.08);
   }
   button.key:active{ transform:scale(0.92); }
@@ -129,19 +112,13 @@
   .key.op.active-op{ background:var(--text-light); color:var(--accent); }
   [data-theme="light"] .key.op.active-op{ background:var(--text-dark); color:var(--accent); }
   .key.zero{
-    grid-column:span 2;
-    aspect-ratio:auto;
-    border-radius:var(--zero-radius);
-    justify-content:flex-start;
-    padding-left:28px;
+    grid-column:span 2; aspect-ratio:auto; border-radius:var(--zero-radius);
+    justify-content:flex-start; padding-left:28px;
   }
 
   .history-panel{
-    background:var(--panel);
-    border-radius:24px;
-    padding:16px 16px 10px;
-    border:1px solid var(--border-soft);
-    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    background:var(--panel); border-radius:24px; padding:16px 16px 10px;
+    border:1px solid var(--border-soft); box-shadow:0 10px 30px rgba(0,0,0,0.2);
     transition:background 0.3s ease;
   }
   .history-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
@@ -166,25 +143,17 @@
   .history-item .time{ font-size:0.7rem; color:var(--time-color); margin-top:2px; }
   .history-row{ display:flex; justify-content:space-between; align-items:baseline; }
 
-  /* Settings panel */
   .overlay{
     position:fixed; inset:0; background:rgba(0,0,0,0.5);
     display:flex; align-items:center; justify-content:center;
-    opacity:0; pointer-events:none; transition:opacity 0.2s ease;
-    z-index:50; padding:20px;
+    opacity:0; pointer-events:none; transition:opacity 0.2s ease; z-index:50; padding:20px;
   }
   .overlay.open{ opacity:1; pointer-events:auto; }
   .settings-panel{
-    background:var(--panel);
-    color:var(--text-light);
-    border-radius:24px;
-    padding:22px;
-    width:100%;
-    max-width:340px;
-    border:1px solid var(--border-soft);
+    background:var(--panel); color:var(--text-light); border-radius:24px; padding:22px;
+    width:100%; max-width:340px; border:1px solid var(--border-soft);
     box-shadow:0 20px 60px rgba(0,0,0,0.5);
-    transform:translateY(12px);
-    transition:transform 0.2s ease;
+    transform:translateY(12px); transition:transform 0.2s ease;
   }
   .overlay.open .settings-panel{ transform:translateY(0); }
   .settings-panel h3{ margin:0 0 18px; font-size:1.1rem; }
@@ -194,53 +163,25 @@
     color:var(--display-fade); margin-bottom:10px; font-weight:600;
   }
   .swatches{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
-  .swatch{
-    width:32px; height:32px; border-radius:50%; cursor:pointer;
-    border:2px solid transparent; transition:transform 0.1s ease, border-color 0.15s ease;
-  }
+  .swatch{ width:32px; height:32px; border-radius:50%; cursor:pointer; border:2px solid transparent; transition:transform 0.1s ease, border-color 0.15s ease; }
   .swatch:hover{ transform:scale(1.08); }
   .swatch.selected{ border-color:var(--text-light); }
-  .swatch.custom-swatch{
-    display:flex; align-items:center; justify-content:center;
-    background:conic-gradient(red, yellow, lime, cyan, blue, magenta, red);
-    position:relative;
-    overflow:hidden;
-  }
-  .swatch.custom-swatch input[type="color"]{
-    position:absolute; inset:0; opacity:0; cursor:pointer; border:none; padding:0;
-  }
-  .segmented{
-    display:flex; background:var(--key-fn); border-radius:14px; padding:4px; gap:4px;
-  }
+  .swatch.custom-swatch{ display:flex; align-items:center; justify-content:center; background:conic-gradient(red, yellow, lime, cyan, blue, magenta, red); position:relative; overflow:hidden; }
+  .swatch.custom-swatch input[type="color"]{ position:absolute; inset:0; opacity:0; cursor:pointer; border:none; padding:0; }
+  .segmented{ display:flex; background:var(--key-fn); border-radius:14px; padding:4px; gap:4px; }
   [data-theme="dark"] .segmented{ background:#2c2c2e; }
-  .segmented button{
-    flex:1; border:none; background:transparent; color:var(--text-light);
-    padding:8px 6px; border-radius:10px; font-size:0.85rem; cursor:pointer;
-    transition:background 0.15s ease, color 0.15s ease;
-  }
+  .segmented button{ flex:1; border:none; background:transparent; color:var(--text-light); padding:8px 6px; border-radius:10px; font-size:0.85rem; cursor:pointer; transition:background 0.15s ease, color 0.15s ease; }
   .segmented button.active{ background:var(--accent); color:var(--accent-contrast); font-weight:600; }
   .slider-row{ display:flex; align-items:center; gap:10px; }
   .slider-row span{ font-size:0.85rem; color:var(--display-fade); width:34px; text-align:center; }
-  input[type="range"]{
-    flex:1; -webkit-appearance:none; height:4px; border-radius:2px;
-    background:var(--key-fn); outline:none;
-  }
-  input[type="range"]::-webkit-slider-thumb{
-    -webkit-appearance:none; width:20px; height:20px; border-radius:50%;
-    background:var(--accent); cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.3);
-  }
-  input[type="range"]::-moz-range-thumb{
-    width:20px; height:20px; border-radius:50%; background:var(--accent); border:none; cursor:pointer;
-  }
-  .settings-close{
-    width:100%; padding:12px; border:none; border-radius:14px;
-    background:var(--accent); color:var(--accent-contrast); font-weight:600;
-    font-size:0.95rem; cursor:pointer; margin-top:6px;
-  }
+  input[type="range"]{ flex:1; -webkit-appearance:none; height:4px; border-radius:2px; background:var(--key-fn); outline:none; }
+  input[type="range"]::-webkit-slider-thumb{ -webkit-appearance:none; width:20px; height:20px; border-radius:50%; background:var(--accent); cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.3); }
+  input[type="range"]::-moz-range-thumb{ width:20px; height:20px; border-radius:50%; background:var(--accent); border:none; cursor:pointer; }
+  .settings-close{ width:100%; padding:12px; border:none; border-radius:14px; background:var(--accent); color:var(--accent-contrast); font-weight:600; font-size:0.95rem; cursor:pointer; margin-top:6px; }
   .settings-close:hover{ filter:brightness(1.08); }
 
   @media (max-width:360px){
-    button.key{ font-size:calc(1.25rem * var(--scale)); }
+    button.key{ font-size:calc(1.2rem * var(--scale)); }
     .key.zero{ padding-left:22px; }
   }
 </style>
@@ -248,7 +189,9 @@
 <body data-theme="dark">
 
 <div class="app">
-  <div class="top-row">
+  <div class="app-header">
+    <div class="brand-title" id="brandTitle">AL WASEEM CALCULATOR</div>
+    <div class="brand-underline"></div>
     <button class="icon-btn" id="settingsBtn" aria-label="Settings">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="3"></circle>
@@ -264,14 +207,19 @@
     </div>
     <div class="keys">
       <button class="key fn" data-action="clear">AC</button>
+      <button class="key fn" data-action="lparen">(</button>
+      <button class="key fn" data-action="rparen">)</button>
+      <button class="key fn" data-action="backspace">⌫</button>
+
       <button class="key fn" data-action="negate">+/-</button>
       <button class="key fn" data-action="percent">%</button>
-      <button class="key op" data-op="/">÷</button>
+      <button class="key fn" data-action="sqrt">√</button>
+      <button class="key op" data-op="÷">÷</button>
 
       <button class="key" data-num="7">7</button>
       <button class="key" data-num="8">8</button>
       <button class="key" data-num="9">9</button>
-      <button class="key op" data-op="*">×</button>
+      <button class="key op" data-op="×">×</button>
 
       <button class="key" data-num="4">4</button>
       <button class="key" data-num="5">5</button>
@@ -303,7 +251,11 @@
 <div class="overlay" id="settingsOverlay">
   <div class="settings-panel">
     <h3>Personalize</h3>
-
+    <div class="settings-group">
+      <label class="group-label">App Name</label>
+      <input type="text" id="titleInput" maxlength="30" placeholder="AL WASEEM CALCULATOR"
+        style="width:100%; padding:10px 12px; border-radius:12px; border:1px solid var(--border-soft); background:var(--key-num); color:var(--text-light); font-size:0.95rem; font-weight:600; letter-spacing:0.5px;">
+    </div>
     <div class="settings-group">
       <label class="group-label">Appearance</label>
       <div class="segmented" id="themeSeg">
@@ -311,7 +263,6 @@
         <button data-value="light">Light</button>
       </div>
     </div>
-
     <div class="settings-group">
       <label class="group-label">Accent Color</label>
       <div class="swatches" id="accentSwatches">
@@ -326,7 +277,6 @@
         </div>
       </div>
     </div>
-
     <div class="settings-group">
       <label class="group-label">Button Shape</label>
       <div class="segmented" id="shapeSeg">
@@ -334,7 +284,6 @@
         <button data-value="square">Square</button>
       </div>
     </div>
-
     <div class="settings-group">
       <label class="group-label">Display Size</label>
       <div class="slider-row">
@@ -343,7 +292,6 @@
         <span>L</span>
       </div>
     </div>
-
     <button class="settings-close" id="closeSettings">Done</button>
   </div>
 </div>
@@ -360,18 +308,14 @@
   const historyEmpty = document.getElementById('historyEmpty');
   const clearHistoryBtn = document.getElementById('clearHistoryBtn');
 
-  let current = '0';
-  let previous = null;
-  let operator = null;
-  let overwrite = true;
-  let expressionLabel = '';
+  let expr = '';           // the full expression as typed, e.g. "12+3×(4-2)"
+  let frozenLabel = null;  // label shown after "=", e.g. "12+3 = 15"
+  let justEvaluated = false;
 
   /* ---------- History ---------- */
   function loadHistory(){
-    try{
-      const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : [];
-    }catch(e){ return []; }
+    try{ const raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : []; }
+    catch(e){ return []; }
   }
   function saveHistory(list){
     try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); }catch(e){}
@@ -379,22 +323,17 @@
   let history = loadHistory();
 
   /* ---------- Settings ---------- */
-  const defaultSettings = { theme:'dark', accent:'#ff9f0a', shape:'round', scale:1 };
+  const defaultSettings = { theme:'dark', accent:'#ff9f0a', shape:'round', scale:1, title:'AL WASEEM CALCULATOR' };
   function loadSettings(){
     try{
       const raw = localStorage.getItem(SETTINGS_KEY);
       return raw ? Object.assign({}, defaultSettings, JSON.parse(raw)) : { ...defaultSettings };
     }catch(e){ return { ...defaultSettings }; }
   }
-  function saveSettings(s){
-    try{ localStorage.setItem(SETTINGS_KEY, JSON.stringify(s)); }catch(e){}
-  }
+  function saveSettings(s){ try{ localStorage.setItem(SETTINGS_KEY, JSON.stringify(s)); }catch(e){} }
   let settings = loadSettings();
 
-  function hexToRgb(hex){
-    const m = hex.replace('#','').match(/.{1,2}/g);
-    return m.map(x => parseInt(x, 16));
-  }
+  function hexToRgb(hex){ const m = hex.replace('#','').match(/.{1,2}/g); return m.map(x => parseInt(x, 16)); }
   function pickContrastColor(hex){
     const [r,g,b] = hexToRgb(hex);
     const luminance = (0.299*r + 0.587*g + 0.114*b) / 255;
@@ -413,13 +352,14 @@
       document.documentElement.style.setProperty('--key-radius', '50%');
       document.documentElement.style.setProperty('--zero-radius', '38px');
     }
-
-    // sync UI controls
     document.querySelectorAll('#themeSeg button').forEach(b => b.classList.toggle('active', b.dataset.value === settings.theme));
     document.querySelectorAll('#shapeSeg button').forEach(b => b.classList.toggle('active', b.dataset.value === settings.shape));
     document.querySelectorAll('.swatch[data-color]').forEach(sw => sw.classList.toggle('selected', sw.dataset.color.toLowerCase() === settings.accent.toLowerCase()));
     document.getElementById('sizeSlider').value = settings.scale;
     document.getElementById('customColorInput').value = settings.accent;
+    document.getElementById('brandTitle').textContent = settings.title || 'AL WASEEM CALCULATOR';
+    const titleInput = document.getElementById('titleInput');
+    if(document.activeElement !== titleInput) titleInput.value = settings.title || '';
   }
 
   document.getElementById('settingsBtn').addEventListener('click', () => {
@@ -429,45 +369,37 @@
   document.getElementById('settingsOverlay').addEventListener('click', (e) => {
     if(e.target.id === 'settingsOverlay') closeSettingsPanel();
   });
-  function closeSettingsPanel(){
-    document.getElementById('settingsOverlay').classList.remove('open');
-  }
+  function closeSettingsPanel(){ document.getElementById('settingsOverlay').classList.remove('open'); }
 
   document.querySelectorAll('#themeSeg button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      settings.theme = btn.dataset.value;
-      saveSettings(settings);
-      applySettings();
-    });
+    btn.addEventListener('click', () => { settings.theme = btn.dataset.value; saveSettings(settings); applySettings(); });
   });
   document.querySelectorAll('#shapeSeg button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      settings.shape = btn.dataset.value;
-      saveSettings(settings);
-      applySettings();
-    });
+    btn.addEventListener('click', () => { settings.shape = btn.dataset.value; saveSettings(settings); applySettings(); });
   });
   document.querySelectorAll('.swatch[data-color]').forEach(sw => {
-    sw.addEventListener('click', () => {
-      settings.accent = sw.dataset.color;
-      saveSettings(settings);
-      applySettings();
-    });
+    sw.addEventListener('click', () => { settings.accent = sw.dataset.color; saveSettings(settings); applySettings(); });
   });
   document.getElementById('customColorInput').addEventListener('input', (e) => {
-    settings.accent = e.target.value;
-    saveSettings(settings);
-    applySettings();
+    settings.accent = e.target.value; saveSettings(settings); applySettings();
   });
   document.getElementById('sizeSlider').addEventListener('input', (e) => {
-    settings.scale = parseFloat(e.target.value);
+    settings.scale = parseFloat(e.target.value); saveSettings(settings); applySettings();
+  });
+  document.getElementById('titleInput').addEventListener('input', (e) => {
+    settings.title = e.target.value.toUpperCase();
+    saveSettings(settings);
+    document.getElementById('brandTitle').textContent = settings.title || 'AL WASEEM CALCULATOR';
+  });
+  document.getElementById('titleInput').addEventListener('blur', () => {
+    if(!settings.title){ settings.title = 'AL WASEEM CALCULATOR'; }
     saveSettings(settings);
     applySettings();
   });
 
   applySettings();
 
-  /* ---------- Calculator logic ---------- */
+  /* ---------- Number formatting ---------- */
   function formatNumber(numStr){
     if(numStr === 'Error') return numStr;
     const num = parseFloat(numStr);
@@ -481,132 +413,275 @@
     const withCommas = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     return sign + withCommas + (parts[1] !== undefined ? '.' + parts[1] : '');
   }
-
-  function updateDisplay(){
-    currentEl.textContent = formatNumber(current);
-    expressionEl.textContent = expressionLabel;
-  }
-
-  function opSymbol(op){
-    return { '+':'+', '-':'−', '*':'×', '/':'÷' }[op] || op;
-  }
-
-  function clearHighlightOps(){
-    document.querySelectorAll('.key.op').forEach(b => b.classList.remove('active-op'));
-  }
-  function highlightOp(op){
-    clearHighlightOps();
-    if(!op) return;
-    const btn = document.querySelector(`.key.op[data-op="${op}"]`);
-    if(btn) btn.classList.add('active-op');
-  }
-
-  function inputDigit(d){
-    if(overwrite){
-      current = d === '.' ? '0.' : d;
-      overwrite = false;
-    } else {
-      if(d === '.' && current.includes('.')) return;
-      if(current === '0' && d !== '.'){
-        current = d;
-      } else {
-        current += d;
-      }
-    }
-    updateDisplay();
-  }
-
-  function compute(a, b, op){
-    a = parseFloat(a); b = parseFloat(b);
-    switch(op){
-      case '+': return a + b;
-      case '-': return a - b;
-      case '*': return a * b;
-      case '/': return b === 0 ? NaN : a / b;
-      default: return b;
-    }
-  }
   function roundResult(n){
     if(!isFinite(n)) return n;
     return Math.round((n + Number.EPSILON) * 1e10) / 1e10;
   }
 
+  /* ---------- Tokenizer + recursive-descent parser (supports + - × ÷ () √ %) ---------- */
+  function tokenize(str){
+    const tokens = [];
+    let i = 0;
+    while(i < str.length){
+      const c = str[i];
+      if(/[0-9.]/.test(c)){
+        let j = i;
+        while(j < str.length && /[0-9.]/.test(str[j])) j++;
+        tokens.push({ type:'num', value: str.slice(i, j) });
+        i = j; continue;
+      }
+      if(c === '√'){ tokens.push({ type:'sqrt' }); i++; continue; }
+      if(c === '('){ tokens.push({ type:'lparen' }); i++; continue; }
+      if(c === ')'){ tokens.push({ type:'rparen' }); i++; continue; }
+      if(c === '%'){ tokens.push({ type:'percent' }); i++; continue; }
+      if(c === '×' || c === '*'){ tokens.push({ type:'op', value:'*' }); i++; continue; }
+      if(c === '÷' || c === '/'){ tokens.push({ type:'op', value:'/' }); i++; continue; }
+      if(c === '+'){ tokens.push({ type:'op', value:'+' }); i++; continue; }
+      if(c === '-' || c === '−'){ tokens.push({ type:'op', value:'-' }); i++; continue; }
+      i++; // skip unknown characters
+    }
+    return tokens;
+  }
+
+  function evaluateExpr(str){
+    let s = str;
+    const open = (s.match(/\(/g) || []).length;
+    const close = (s.match(/\)/g) || []).length;
+    if(open > close) s += ')'.repeat(open - close);
+
+    const tokens = tokenize(s);
+    if(tokens.length === 0) throw new Error('empty');
+    let pos = 0;
+    const peek = () => tokens[pos];
+    const consume = () => tokens[pos++];
+
+    function parseExpression(){
+      let value = parseTerm();
+      while(peek() && peek().type === 'op' && (peek().value === '+' || peek().value === '-')){
+        const op = consume().value;
+        const rhs = parseTerm();
+        value = op === '+' ? value + rhs : value - rhs;
+      }
+      return value;
+    }
+    function parseTerm(){
+      let value = parseFactor();
+      while(peek() && peek().type === 'op' && (peek().value === '*' || peek().value === '/')){
+        const op = consume().value;
+        const rhs = parseFactor();
+        if(op === '/'){
+          if(rhs === 0) throw new Error('div0');
+          value = value / rhs;
+        } else value *= rhs;
+      }
+      return value;
+    }
+    function parseFactor(){
+      if(peek() && peek().type === 'op' && peek().value === '-'){
+        consume();
+        return -parseFactor();
+      }
+      let value = parsePrimary();
+      while(peek() && peek().type === 'percent'){
+        consume();
+        value = value / 100;
+      }
+      return value;
+    }
+    function parsePrimary(){
+      const t = peek();
+      if(!t) throw new Error('unexpected end');
+      if(t.type === 'num'){ consume(); return parseFloat(t.value); }
+      if(t.type === 'lparen'){
+        consume();
+        const value = parseExpression();
+        if(peek() && peek().type === 'rparen') consume();
+        return value;
+      }
+      if(t.type === 'sqrt'){
+        consume();
+        let value;
+        if(peek() && peek().type === 'lparen'){
+          consume();
+          value = parseExpression();
+          if(peek() && peek().type === 'rparen') consume();
+        } else {
+          value = parsePrimary();
+        }
+        if(value < 0) throw new Error('negative sqrt');
+        return Math.sqrt(value);
+      }
+      throw new Error('unexpected token');
+    }
+
+    const result = parseExpression();
+    if(pos !== tokens.length) throw new Error('trailing tokens');
+    return result;
+  }
+
+  /* ---------- Display ---------- */
+  function updateDisplay(){
+    currentEl.textContent = expr === '' ? '0' : expr;
+    if(frozenLabel !== null){
+      expressionEl.textContent = frozenLabel;
+      return;
+    }
+    let preview = '';
+    if(expr && /[0-9)%]$/.test(expr)){
+      try{
+        const val = evaluateExpr(expr);
+        if(isFinite(val) && !isNaN(val)){
+          const rounded = roundResult(val);
+          if(String(rounded) !== expr){
+            preview = '= ' + formatNumber(String(rounded));
+          }
+        }
+      }catch(e){ preview = ''; }
+    }
+    expressionEl.textContent = preview;
+  }
+
+  function lastChar(){ return expr.length ? expr[expr.length - 1] : ''; }
+
+  function inputDigit(d){
+    frozenLabel = null;
+    if(justEvaluated){ expr = d; justEvaluated = false; }
+    else if(expr === '0'){ expr = d; }
+    else { expr += d; }
+    updateDisplay();
+  }
+
+  function inputDecimal(){
+    frozenLabel = null;
+    if(justEvaluated){ expr = '0.'; justEvaluated = false; updateDisplay(); return; }
+    const m = expr.match(/([0-9]*\.?[0-9]*)$/);
+    const seg = m ? m[0] : '';
+    if(seg.includes('.')) return;
+    expr += (seg === '' ? '0.' : '.');
+    updateDisplay();
+  }
+
   function chooseOperator(op){
-    if(operator && !overwrite){
-      const result = roundResult(compute(previous, current, operator));
-      current = Number.isNaN(result) ? 'Error' : String(result);
-      previous = current;
+    frozenLabel = null;
+    if(expr === ''){
+      if(op === '-'){ expr = '-'; }
+      justEvaluated = false;
+      updateDisplay();
+      return;
+    }
+    justEvaluated = false;
+    const lc = lastChar();
+    if('+-×÷'.includes(lc)){
+      expr = expr.slice(0, -1) + op;
+    } else if(lc === '('){
+      if(op === '-') expr += op;
     } else {
-      previous = current;
+      expr += op;
     }
-    operator = op;
-    overwrite = true;
-    expressionLabel = `${formatNumber(previous)} ${opSymbol(op)}`;
-    highlightOp(op);
     updateDisplay();
   }
 
-  function equals(){
-    if(operator === null || previous === null) return;
-    const a = previous, b = current, op = operator;
-    const result = roundResult(compute(a, b, op));
-    const resultStr = Number.isNaN(result) ? 'Error' : String(result);
-    const exprText = `${formatNumber(a)} ${opSymbol(op)} ${formatNumber(b)}`;
-
-    if(resultStr !== 'Error'){
-      addHistory(exprText, formatNumber(resultStr));
-    }
-
-    current = resultStr;
-    expressionLabel = exprText + ' =';
-    previous = null;
-    operator = null;
-    overwrite = true;
-    clearHighlightOps();
-    updateDisplay();
-  }
-
-  function clearAll(){
-    current = '0';
-    previous = null;
-    operator = null;
-    overwrite = true;
-    expressionLabel = '';
-    clearHighlightOps();
-    updateDisplay();
-  }
-
-  function backspace(){
-    if(overwrite) return;
-    if(current.length <= 1 || (current.length === 2 && current.startsWith('-'))){
-      current = '0';
-      overwrite = true;
+  function inputParen(kind){
+    frozenLabel = null;
+    if(kind === 'l'){
+      if(justEvaluated){ expr = '('; justEvaluated = false; updateDisplay(); return; }
+      const lc = lastChar();
+      if(/[0-9)%]/.test(lc)){ expr += '×('; }
+      else { expr += '('; }
     } else {
-      current = current.slice(0, -1);
+      const openCount = (expr.match(/\(/g) || []).length;
+      const closeCount = (expr.match(/\)/g) || []).length;
+      const lc = lastChar();
+      if(openCount > closeCount && /[0-9)%]/.test(lc)){ expr += ')'; }
     }
+    updateDisplay();
+  }
+
+  function inputSqrt(){
+    frozenLabel = null;
+    justEvaluated = false;
+    const lc = lastChar();
+    if(/[0-9)%]/.test(lc)){ expr += '×√('; }
+    else { expr += '√('; }
+    updateDisplay();
+  }
+
+  function inputPercent(){
+    frozenLabel = null;
+    const lc = lastChar();
+    if(/[0-9)]/.test(lc)){ expr += '%'; }
     updateDisplay();
   }
 
   function negate(){
-    if(current === '0') return;
-    current = current.startsWith('-') ? current.slice(1) : '-' + current;
-    updateDisplay();
-  }
-
-  function percent(){
-    const num = parseFloat(current);
-    if(Number.isNaN(num)) return;
-    current = String(roundResult(num / 100));
-    overwrite = false;
-    updateDisplay();
-  }
-
-  function addHistory(expr, result){
-    const entry = { expr, result, time: new Date().toISOString() };
-    history.unshift(entry);
-    if(history.length > MAX_HISTORY){
-      history = history.slice(0, MAX_HISTORY);
+    frozenLabel = null;
+    if(expr === '' || justEvaluated){
+      expr = justEvaluated ? '-' + expr : '-';
+      justEvaluated = false;
+      updateDisplay();
+      return;
     }
+    const m = expr.match(/(\d+\.?\d*)$/);
+    if(m){
+      const num = m[0];
+      const start = expr.length - num.length;
+      const before = expr.slice(0, start);
+      if(before.endsWith('(-') && (start - 2 === 0 || /[+\-×÷(]/.test(expr[start - 3] || ''))){
+        expr = before.slice(0, -2) + num;
+      } else {
+        expr = before + '(-' + num + ')';
+      }
+    } else if(/[+\-×÷(]$/.test(expr)){
+      expr += '-';
+    }
+    updateDisplay();
+  }
+
+  function backspace(){
+    frozenLabel = null;
+    if(justEvaluated){ expr = ''; justEvaluated = false; updateDisplay(); return; }
+    if(expr.length <= 1){ expr = ''; }
+    else {
+      // remove a trailing function marker like "√(" or "×(" as one unit
+      if(expr.endsWith('√(')){ expr = expr.slice(0, -2); }
+      else { expr = expr.slice(0, -1); }
+    }
+    updateDisplay();
+  }
+
+  function clearAll(){
+    expr = ''; frozenLabel = null; justEvaluated = false;
+    updateDisplay();
+  }
+
+  function equals(){
+    if(expr === '') return;
+    let result;
+    try{
+      result = evaluateExpr(expr);
+      if(!isFinite(result) || isNaN(result)) throw new Error('bad result');
+    }catch(e){
+      frozenLabel = expr + ' =';
+      currentEl.textContent = 'Error';
+      expressionEl.textContent = frozenLabel;
+      justEvaluated = true;
+      expr = '';
+      return;
+    }
+    const rounded = roundResult(result);
+    const resultStr = String(rounded);
+    addHistory(expr, formatNumber(resultStr));
+    frozenLabel = expr + ' =';
+    expr = resultStr;
+    justEvaluated = true;
+    updateDisplay();
+  }
+
+  /* ---------- History rendering ---------- */
+  function addHistory(exprText, result){
+    const entry = { expr: exprText, result, time: new Date().toISOString() };
+    history.unshift(entry);
+    if(history.length > MAX_HISTORY) history = history.slice(0, MAX_HISTORY);
     saveHistory(history);
     renderHistory();
   }
@@ -615,18 +690,14 @@
     const d = new Date(iso);
     const now = new Date();
     const sameDay = d.toDateString() === now.toDateString();
-    const timeStr = d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    const timeStr = d.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
     if(sameDay) return timeStr;
-    const dateStr = d.toLocaleDateString([], {month:'short', day:'numeric'});
-    return `${dateStr}, ${timeStr}`;
+    return `${d.toLocaleDateString([], { month:'short', day:'numeric' })}, ${timeStr}`;
   }
 
   function renderHistory(){
     historyList.querySelectorAll('.history-item').forEach(el => el.remove());
-    if(history.length === 0){
-      historyEmpty.style.display = 'block';
-      return;
-    }
+    if(history.length === 0){ historyEmpty.style.display = 'block'; return; }
     historyEmpty.style.display = 'none';
     history.forEach((entry) => {
       const item = document.createElement('div');
@@ -639,12 +710,9 @@
         <span class="res">${entry.result}</span>
       `;
       item.addEventListener('click', () => {
-        current = entry.result.replace(/,/g, '');
-        overwrite = false;
-        previous = null;
-        operator = null;
-        expressionLabel = `${entry.expr} =`;
-        clearHighlightOps();
+        expr = entry.result.replace(/,/g, '');
+        justEvaluated = true;
+        frozenLabel = `${entry.expr} =`;
         updateDisplay();
       });
       historyList.appendChild(item);
@@ -660,26 +728,36 @@
     }
   });
 
+  /* ---------- Button wiring ---------- */
   document.querySelectorAll('[data-num]').forEach(btn => {
     btn.addEventListener('click', () => inputDigit(btn.getAttribute('data-num')));
   });
   document.querySelectorAll('[data-op]').forEach(btn => {
     btn.addEventListener('click', () => chooseOperator(btn.getAttribute('data-op')));
   });
-  document.querySelector('[data-action="decimal"]').addEventListener('click', () => inputDigit('.'));
+  document.querySelector('[data-action="decimal"]').addEventListener('click', inputDecimal);
   document.querySelector('[data-action="clear"]').addEventListener('click', clearAll);
   document.querySelector('[data-action="negate"]').addEventListener('click', negate);
-  document.querySelector('[data-action="percent"]').addEventListener('click', percent);
+  document.querySelector('[data-action="percent"]').addEventListener('click', inputPercent);
+  document.querySelector('[data-action="sqrt"]').addEventListener('click', inputSqrt);
+  document.querySelector('[data-action="lparen"]').addEventListener('click', () => inputParen('l'));
+  document.querySelector('[data-action="rparen"]').addEventListener('click', () => inputParen('r'));
+  document.querySelector('[data-action="backspace"]').addEventListener('click', backspace);
   document.querySelector('[data-action="equals"]').addEventListener('click', equals);
 
   window.addEventListener('keydown', (e) => {
     if(e.key >= '0' && e.key <= '9'){ inputDigit(e.key); return; }
-    if(e.key === '.'){ inputDigit('.'); return; }
-    if(['+','-','*','/'].includes(e.key)){ chooseOperator(e.key); return; }
+    if(e.key === '.'){ inputDecimal(); return; }
+    if(e.key === '+' ){ chooseOperator('+'); return; }
+    if(e.key === '-' ){ chooseOperator('-'); return; }
+    if(e.key === '*' ){ chooseOperator('×'); return; }
+    if(e.key === '/' ){ e.preventDefault(); chooseOperator('÷'); return; }
+    if(e.key === '('){ inputParen('l'); return; }
+    if(e.key === ')'){ inputParen('r'); return; }
+    if(e.key === '%'){ inputPercent(); return; }
     if(e.key === 'Enter' || e.key === '='){ e.preventDefault(); equals(); return; }
     if(e.key === 'Backspace'){ backspace(); return; }
     if(e.key === 'Escape'){ clearAll(); return; }
-    if(e.key === '%'){ percent(); return; }
   });
 
   renderHistory();
